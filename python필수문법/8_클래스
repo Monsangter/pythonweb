@@ -125,11 +125,123 @@ class Monster:
       print("지상에서 이동하기")
       
 자식 클래스 정의
-      print("지상에서 이동하기")
-      
-      
-      
+
+class Wolf(Monster):
+  pass
   
+class Shark(Monster):
+  def move(self):
+    print("헤엄치기")
+    
+    
+class Dragon(Monster):
+  def move(self):
+    print("날기")
+    
+이닛이 모두 생략돼 있다. 몬스터 클래스를 상속받고 있다. 즉몬스터의 생성자가 호출된다.
+pass는 그냥 정의만하고 싶을때 사용한다.
+
+나머지는 메서드 오버라이딩이다. 부모안의 메서드를 각 몬스터의 특징에 맞게 재정의 해줬다.
+      
+=======
+rpg게임 업데이트
+
+드래곤 클래스에 인스턴스 속성으로 3개 스킬추가
+
+드래곤이 스킬을 쓰면 속성 에 하나가 무작위로 사용된다.
+      
+#상속
+# : 클래스들이 중복된 코드를 제거하고 유지보수를
+# 편하게 하기 위해 사용.
+
+#클래스 변수
+#: 인스턴스들이 모두 공유하는 변수. 
+# 반면 멤버변수처럼 생성자로 매개변수값을 통해 인스턴스가 갖는 값은 각각 고유의 값임.
+
+import random
+# 부모 클래스
+class Monster:
+    max_num = 1000
+    def __init__(self, name, health, attack):
+        self.name = name
+        self.health = health
+        self.attack = attack
+        Monster.max_num -= 1
+    def move(self):
+      print(f"[{self.name}]지상에서 이동하기")
+
+# 자식 클래스
+class Wolf(Monster):
+    pass
+
+class Shark(Monster):
+  def move(self):
+    print(f"[{self.name}]헤엄치기") # 메소드 오버라이딩
+    
+class Dragon(Monster):
+  def __init__(self, name, health, attack):
+    super().__init__(name, health, attack) # 부모 클래스의 생성자를 가져올 수 있다.
+    self.skills = ("불뿜기", "꼬리치기", "날개치기")
+
+  def move(self):
+    print(f"[{self.name}]날기")
+  def skill(self):
+    print(f"[{self.name}] 스킬 사용 {self.skills[random.randint(0,2)]}" )
+
+wolf = Wolf("울프",1500, 200)
+wolf.move()
+print(wolf.max_num)
+
+shark = Shark("샤크",1500, 200)
+shark.move()
+print(shark.max_num)
+
+dragon = Dragon("드래곤", 1500, 200)
+dragon.move()
+dragon.skill()
+print(dragon.max_num)
+#가장 싫어하는건 중복.. 드래곤 생성할때마다 이렇게 호출할거임? 아니다. 드래곤 클래스의 멤버변수에 스킬을 추가해주자.
+#Dragon = Dragon("드래곤",1500, 200, ("불뿜기", "꼬리치기", "날개치기")) #스킬을 고정돼 있으니 튜플로
+#Dragon.move()
+
+========
+
+실습문제풀이
+
+class Item():
+    def __init__(self,name,price,weight,isdropable):
+        self.name = name
+        self.price = price
+        self.weight = weight
+        self.isdropable = isdropable    
+    def sale(self):
+        print(f"[{self.name}] 판매가격은 [{self.price}]")
+    def discard(self):
+        if self.isdropable == False:
+            print(f"[{self.name}]은 버릴 수 없습니다!")
+        else:
+            print(f"[{self.name}] 버렸습니다.")
+
+class WearableItem(Item):
+    def __init__(self, name, price, weight, isdropable,effect):
+        super().__init__(name,price,weight,isdropable)
+        self.effect = effect
+    def wear(self):
+        print(f"[{self.name}]을 착용했습니다. {self.effect}")
+
+class UsableItem(Item):
+    def __init__(self, name, price, weight, isdropable,effect):
+        super().__init__(name,price,weight,isdropable)
+        self.effect = effect
+    def wear(self):
+        print(f"[{self.name}]을 사용했습니다. {self.effect}가 지속됩니다.")
+
+    # 인스턴스 생성
+
+    sword = WearableItem("이가닌자의 검", 30000, 3.5, True, "체력 5000증가, 마력 2000증가")
+    sword.wear()
+    sword.sale()
+    sword.discard()
 
 
 
