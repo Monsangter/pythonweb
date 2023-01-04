@@ -83,6 +83,7 @@ data = {
       "목표2":"매일코공1시간".
 }
 #pickle은 p든 pic든 원하는거 붙여주면 된다. wb는 바이너리모드로 컴퓨터가 바로 읽을 수 있는 데이터 형식이다.
+#피클데이터형식으로 열어줌
 file = open("data.pickle", "wb")
 #피클 모듈에 있는 덤프함수 호출. 그럼 피클이라는 형식의 파일에 데이터 객체가 저장된다.
 pickle.dump(data,file)
@@ -97,5 +98,51 @@ print(data)
 file.close()
 
 with구문 사용x
+file = open("data.txt"."r")
+data = file.read()
+file.close()
 
 with구문 사용 o
+with open("data,txt","r")as file:
+    data = file.read()
+    
+with구문 사용의 이유?
+
+file.close를 매번 사용하기 번거로움. 자동으로 file.close호출
+
+=====
+csv파일이란?
+데이터가 콤마로 구분된 텍스트 파일 형식
+엑셀의 데이터처럼 테이블형태의 데이터를 표시함.단지 콤마로 표시돼 잇을 뿐.
+
+-csv파일 읽기
+
+import csv
+
+def show_profit(data):
+    name = data[0]
+    purchase_price = int(data[1])
+    amount = int(data[2])
+    target_price
+
+data = [
+    ["종목","매입가","수량","목표가"],
+    ["삼성전자","85000","10","90000"],
+    ["NAVER","380000","5","400000"],
+]
+
+file = open("./myvenv/chapter10/mystock.csv","w")
+writer = csv.writer(file)
+
+for d in data:
+    writer.writerow(d)
+
+file.close()
+
+file = open("./myvenv/chapter10/mystock.csv","r")
+reader = list(csv.reader(file))#순회가능한 시퀀스자료형의 객체가 나온다.
+
+for data in reader[1:]:
+    print(data[0], (int(data[3])-int(data[1]))*int(data[2]), (int(data[3])/int(data[1])-1)*100)
+
+
