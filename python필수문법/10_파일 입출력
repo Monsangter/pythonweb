@@ -1,0 +1,101 @@
+파일 입출력 사용 이유
+
+입출력을 위해 그동안 input() 프린트를 위해 print()를 사용했다. 저장하지는 않음.
+근데 만약 외부파일의 데이터를 가져오거나, 유의미한 데이터를 저장해야할때 읽거나 저장하는 기능이 필요함.
+따라서 파일형태로 읽고 저장하는게 필요함.
+
+파일로부터 데이터를 읽어와 프로그램에 사용하기 위해
+프로그램에서 발생한 데이터를 파일형태로 저장하기 위해.
+
+파일은 세가지 모드로 나뉜다.
+
+w: 쓰기모드
+a: 추가모드
+r: 읽기모드
+
+파일 열고 작업하고 닫아준다.
+
+-파일 쓰기
+
+파일 객체 = open("파일이름","파일모드")
+파일객체.wite(데이터)
+파일객체 .close()
+
+file= open("data.txt","w")
+객체형태로 읽어와 file이라는 변수에 담게 된다.
+
+file.write("1.스타트코딩")
+
+file.close()
+
+-파일 추가
+
+file= open("data.txt","a")
+객체형태로 읽어와 file이라는 변수에 담게 된다.
+
+file.write("1.스타트코딩")
+
+file.close()
+오픈할떄 모드만 바뀐다. 그럼 차이점은 무엇일까?
+w는 덮어쓰기. a는 이어쓰기.
+
+-파일 읽기
+
+file= open("data.txt","r")
+
+data = file.read()
+
+file.close()
+
+# #1. 파일 쓰기
+# #기준이 루트디렉토리 바로 아래에 잡히기 때문에
+# #python_basic 폴더아래에 바로 생기게된다.
+# #file = open("data.txt", "w")
+# file = open("./myvenv/chapter10/data.txt", "w", encoding="utf8")
+# #맥은 비스코안꺠지는데. 윈도우는꺠지는듯. 인코딩 사용.
+# file.write("1. 스타트코딩")
+# file.close()
+#2. 파일 추가
+# file = open("./myvenv/chapter10/data.txt", "a", encoding="utf8")
+# file.write("2. 비전공자")
+# file.close()
+# 3. 파일 전체읽기
+file = open("./myvenv/chapter10/data.txt", "r", encoding="utf8")
+# data = file.read()
+# file.close()
+
+# 3.2 파일 한줄 읽기. 마지막을 찾아 브레이크 해주는 로직
+while True:
+    data = file.readline()
+    print(data, end="")
+    if data == "":
+        break
+file.close()
+
+====
+pickle 모둘 
+
+파일에 파이썬 객체 저장하기
+
+import picke# 내장모듈
+data = {
+      "목표1":"매일팔굽100".
+      "목표2":"매일코공1시간".
+}
+#pickle은 p든 pic든 원하는거 붙여주면 된다. wb는 바이너리모드로 컴퓨터가 바로 읽을 수 있는 데이터 형식이다.
+file = open("data.pickle", "wb")
+#피클 모듈에 있는 덤프함수 호출. 그럼 피클이라는 형식의 파일에 데이터 객체가 저장된다.
+pickle.dump(data,file)
+file.close()
+
+파일로부터 파이썬 객체 읽기
+
+import pickle
+file = open("data.pickle", "rb")
+data = pickle.load(file)
+print(data)
+file.close()
+
+with구문 사용x
+
+with구문 사용 o
