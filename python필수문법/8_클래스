@@ -1,0 +1,132 @@
+클래스
+
+객체를 만들기 위한 설계도
+
+
+객체
+
+설계도로부터 만들어낸 제품.
+
+
+
+-클래스란?
+
+속성
+체력 공격력 방어력 이동속도
+
+메소드
+위치로 이동, 공격, 아이템 사용 , 귀환
+
+class 클래스이름:
+  def 메서드이름(self):
+    명령블록
+    
+class Monster:
+  def say(self):
+    print("나는 몬스터다")
+    
+모든 메소드의 첫번쨰 매개변수로는 self가 들어간다
+
+
+-호출하기
+
+인스턴스 = 클래스이름()
+인스턴스.메서드()
+goblin=Monster()
+goblin.say()
+
+파이썬에서는 자료형도 클래스이다.
+
+class Monster:
+    def say(self):
+        print("나는 몬스터다!")
+
+goblin=Monster()
+goblin.say()
+
+# 파이썬에서는 자료형도 클래스다
+a = 10
+b = "문자열객체"
+c = True
+
+print(type(a))
+print(type(b))
+print(type(c))
+
+#b객체. 문자열 객체안에 있는 메소드들을 확인할 수 있음.
+print(b.__dir__())
+
+=========
+생성자
+
+클래스를 만들때는 속성과 메소드 두개가 필요하다.
+속성은 클래스를 설명하는 특징
+메소드는 동작
+
+-속성의 추가
+class Monster:
+  def say(self):
+    print("나는 몬스터다")
+    
+여기에 체력 공격력 이속을 넣어보자
+
+
+class Monster:
+    def __init__(self, health, attack,speed):
+        self.health = health
+        self.attack = attack
+        self.speed = speed
+        
+__init__메서드는 인스턴스를 만들떄 반드시 호출되는 메서드이다.
+
+goblin = Monster(800,120,300)
+
+self는 매개변수로 치지 않음. 인스턴스 자기자신을 말한다.
+ex) self.attack = attack 
+현재 호출되고 있는 goblin 인스턴스의 attack 객체에 attack 매개변수 값을 넣어라.
+
+-메소드 추가
+
+체력감소, 체력가져오기
+
+class Monster:
+    def __init__(self, health, attack,speed):
+        self.health = health
+        self.attack = attack
+        self.speed = speed    
+    def decrease_health(self,num):
+      self.health -= num    
+    def get_health(self):
+      return self.health
+
+goblin.decrease_health(100)
+print(goblin.get_health())
+
+=========
+상속
+
+클래스들간의 속성이나 메소드를 물려줄 수 있음.
+
+-상속의 개념
+부모클래스로부터 자식클래스는 속성과 메소드를 그대로 가져올 수 있다.
+
+-언제쓰나?
+땅몬스터 물몬스터 공중몬스터 같이 몬스터의 자식분류들이 있따고 해보자. 각각 하나씩 전부 클래스구현하면 가독성도 떨어지고 유지보수도 힘들어진다.
+비슷한 공통코드가 많이 있다면 공통된 부분을 뽑아서 하나의 부모메소드를 만들어줄 수 있지 않을까?
+
+부모클래스 정의
+
+class Monster:
+    def __init__(self,name, health, attack):
+        self.name = name
+        self.health = health
+        self.attack = attack
+        
+    def move(self):
+      print("지상에서 이동하기")
+  
+
+
+
+
+
