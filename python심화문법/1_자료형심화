@@ -1,0 +1,117 @@
+인강의 안좋은점
+언제나 들을 수 있기 때문에 중간에 포기하게됨.
+
+문자열과 리스트를 중점적으로 학습한다. 가장 많이 쓰기 때문임.
+
+문자열을 다루는 중요한 메서드
+
+-문자열 메서드
+
+소문자를 대문자로 바꾸는 방법
+
+문자열 뒤에 .upper()을 쓰면 문자열이 전부 대문자로 바뀐다
+문자열 뒤에 .lower()을 쓰면 전부 소문자로 바뀐다.
+문자열 바꾸는 방법 .replace(바꿀문자열,바꾸는문자열)
+문자열 위치 찾는 방법 문자열.find("찾을 문자열부분") 찾을 문자열의 맨 앞부분 인덱스가 반환된다.
+문자열 갯수새기 문자열.count("셀 문자열") 해당 문자열이 몇개 들어가있는지 갯수를 새준다.
+문자열을 분리하는 방법.문자열.split("구분자")
+문자를 연결하는 방법. 구분자.join(리스트)
+공백 삭제 법 . 많이 사용한다. api를 이용할때, 정보등을 크롤링 해왔을때. 공백을 삭제해주는데 유용. 문자열.lstrip(), rstrip() strip()
+
+# 1. replace
+# 문자열 교체
+a = '오늘 날씨는 흐림입니다'.replace("흐림", "맑음")
+print(a)
+
+#2. find
+# 문자열 찾기
+b= "hello world".find('world2')
+print(b)
+
+#3.split
+# 문자열 분리
+c = "나이키 신발 265 X1212 70000".split()
+print(c)
+
+d = "나이키신발:265:X1212:78000"
+print(d)
+
+#4. strip
+#문자열 공백 제거
+e = '      Yeah     '.lstrip()
+print(e)
+f = '      Yeah     '.rstrip()
+print(f)
+g = '      Yeah     '.strip()
+print(g)
+
+===============
+문자열 포매팅
+
+문자열을 더 편리하게 만드는 방법.
+여러가지 데이터를 조합해 문자열을 만들어 낸다.
+
+기본적으로 f스트링이 더 편리하고 시간도 더 빠른데,
+다른 사람들이 작성한 코드를 읽어내기 위해 format 매서드도 공부해보자.
+
+'{인덱스}'.foramt(데이터)
+
+'hello {} {} {}'.format('apple','pineapple','pen')
+인덱스 생략 법
+
+f-string
+
+name1 = 'apple'
+name2 = 'pineapple'
+name3 = 'pen'
+
+msg = f'Hello {name1} {name2} {name3}'
+
+'Hello apple pineapple pen'
+
+# 문자열 포매팅이 없다면
+# 기준님 수강기간이 7일 남았습니다.
+
+name = '기준'
+duration = 7
+
+message = name + '님 수강기간이 ' + str(duration) + '일 남았습니다.'
+print(message)
+
+message_foramt = f'{name}님 수강기간이 {duration}일 남았습니다.'
+print(message_foramt)
+
+# format 매서드 사용
+a = 'Hello {0}{1}{2}'.format('apple', 'pineapple', 'pen')
+print(a)
+
+b = 'Hello {}{}{}'.format('apple', 'pineapple', 'pen')
+print(b)
+
+# f-string 사용
+name1 = 'apple'
+name2 = 'pineapple'
+name3 = 'pen'
+
+c = f'Hello {name1} {name2} {name3}'
+print(c)
+======
+리스트에서 유용한 메서드 학습
+
+리스트에 데이터 추가하는 법
+fruits.append('grape')
+
+리스트에 리스트 추가
+fruits.append(['grape','mango'])
+
+print(fruits)
+
+리스트 데이터 삭제하는 방법
+fruits = ['apple', 'orange', 'mango']
+fruits.pop()
+맨뒤를 반환해주고 삭제해준다.
+
+
+
+
+
