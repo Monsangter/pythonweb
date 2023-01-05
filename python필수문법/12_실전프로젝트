@@ -1,0 +1,122 @@
+그동안 했던거 총집함 블로그 프로젝트.
+
+-프로젝트 기획의도
+
+crud기능 있는 프로그램
+
+-프로젝트 설계
+
+왜하는가?
+설계과정없이 만들면 산으로 가기 쉬움.
+필요한 기능인데도 충돌 날 수도 있고 프로젝트 엎게 될 수도 잇음.
+그래서 설계를 잘해야한다.
+
+요구사항 분석 - 프로그램 설계 - 프로그램 개발 - 테스트.
+이후 안정성을 테스트 하는 단계 후 배포 유지보수
+
+프로그램 기능 파악하기.
+
+게시글 로딩하기
+메뉴 출력하기
+게시글 쓰기
+게시글 목록 확인하기
+게시글 상세 확인하기
+게시글 수정하기
+게시글 삭제하기
+게시글 저장하기
+
+게시글에는 글번호, 제목, 본문내용, 조회수 등이 있을 것이다.
+즉 게시글 자체를 하나의 클래스로 만드는 게 좋을 것이다.
+
+-클래스 설계
+
+게시물 클래스(board)
+속성, 글번호, 제목, 본문 , 조회수
+
+메서드. 게시물 수정하기, 조회수 증가하기, 속성 가져오기(속성에서 값을 그대로 가져오는게 아니라 메소드를 통해 가져옴)
+
+-게시글 로딩 구현
+
+data .csv파일이 있으면
+  게시글을 로딩한다
+파일이 없으면
+  파일을 만든다.
+  
+게시글 로딩하기
+  data.csv파일을 읽는다.
+  데이터 한줄마다 
+    post 인스턴스를 만든다,
+    post 리스트에 인스턴스를 저장한다.
+
+-메뉴출력하기 구현
+
+import os,csv
+from post import Post
+
+file_path = "./myvenv/chapter12/data.csv"
+# post 객체를 저장할 리스트
+post_list = []
+#data.csv파일이 있다면
+if os.path.exists(file_path):
+    #게시글 로딩
+    print("게시글 로딩중...")
+    f = open(file_path,"r",encoding="utf8")
+    reader = csv.reader(f)
+    for data in reader:
+        #Post 인스턴스 생성
+        post = Post(int(data[0]), data[1], data[2], int(data[3]))
+        post_list.append(post)
+else:
+    #파일 생성하기
+    f = open(file_path, "w", encoding="utf8", newline="")
+    f.close()
+
+# 메뉴 출력하기
+while True:
+    print("\n\n - Fast campus blog -")
+    print("-메뉴를 선택해 주세요-")
+    print("1. 게시글 쓰기")
+    print("2. 게시글 목록")
+    print("3. 프로그램 종료")
+    try:
+        choice = int(input(">>>"))
+    except ValueError:
+        print("숫자를 입력해 주세요")  
+    else:  
+        if choice == 1:
+            print("게시글 쓰기")
+        elif choice == 2:
+            print("게시글 목록")
+        elif choice == 3:
+            print("프로그램 종료")
+            break
+            
+      -게시ㅣ글 쓰기 구현
+      
+      post인스턴스 생성과 저장
+
+post 인스턴스에는
+1. 글번호, 2. 제목, 3. 내용, 4. 조회수가 있다.
+post 리스트의 마지막 글번호는 현재 post_list 마지막 요소의 +1
+
+-게시글 목록
+
+없는 글번호 -> ㅜ한반복
+-1 입력시 -> 메뉴로 복기
+올바른 글번호 -> 게시글 상세
+        
+-게시글 상세 구현
+사용자가 입력한 글번호와 같은 게시글 찾기, 조회수 증가 및 상세 내용출력, 수정, 삭제기능을 수행할때 post 객체 넘겨주기
+
+-게시글 수정하기
+사용자가 새로 제목,본문 입력
+set_post 메소드로 post 객체를 수정해준다
+게시글 삭제
+post_list 해당 Post 객체를 삭제해준다
+게시글 저장
+post_list 에 저장된 내용을 data.csv에 저장
+
+
+
+
+
