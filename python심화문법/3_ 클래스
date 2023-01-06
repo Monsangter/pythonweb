@@ -1,0 +1,53 @@
+
+-절차지향 vs 객체지향
+기능을 어떤 순서로 처리할 것인가에 초점을 맞춘다.
+ex) 씻기, 옷입기, 밥먹기
+순서가 중심이 되어 프로그래밍한다.
+
+객체지향은 객체가 중심이되고, 객체를 정의하며 객체간 상호작용에 초점을 맞춘다.
+
+프로그래밍 규모가 작다면 절차지향이 유리하다.
+
+-클래스란
+속성. 이름 체력 방어막 공격력
+메소드. 동작
+
+class 클래스이름:
+  pass
+pass는 나중에 구현하겠다는 키워드 이다.
+
+인스턴스 = 클래스이름()
+
+-클래스에 속성 추가
+class Unit:
+  def __init__(slef,name,hp,shield,damage): #먼저 생성자가 필요하다.
+      self.name ~~~
+
+unit 클래스에 메서드를 추가해 봅시다. 정보출력 메소드
+
+class Unit:
+  def __init__(self,name,hp,shield,damage): #먼저 생성자가 필요하다.
+      self.name ~~~
+      
+  def __str__(self):
+      print(f"[{self.name}] 체력 :{self.hp} 실드: {self.shield} 공격력 : {self.damage}")
+      
+probe = Unit("프로브",20,20,5)
+print(probe)
+
+
+====
+
+-인스턴스 속성
+객체마다 다르게 가지는 속성
+class Unit:
+  def __init__(slef,name,hp,shield,damage): #먼저 생성자가 필요하다.
+      self.name ~~~
+
+probe = Unit("프로브", 20, 20, 5)
+
+zealot = Unit("질럿", 100, 60 , 16)
+
+dragoon = Unit("드라군", 100, 80, 20)
+
+각자만의 값을 가지고 있다.
