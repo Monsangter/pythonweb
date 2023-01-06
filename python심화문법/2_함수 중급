@@ -1,0 +1,222 @@
+함수와 더 친해보자.
+
+다양한 매개변수(*args, **kwargs)
+람다함수
+맵필터함수
+
+코딩하는 시간을 단축시킬 수 있다.
+
+-위치 매개변수 
+가장 기본적 매개변수
+지금까지 코딩할때 사용했던 매개변수가 해당
+함수 호출시 순서대로 데이터를 넘겨줘야 한다.
+다른 매개변수와 함께 쓸때 항상 맨앞에 써야한다.
+
+def my_func(a,b):
+  print(a,b)
+
+my_func(1,2)
+
+
+-기본 매개변수
+매개변수의 기본값 지정 가능.
+함수정의시 매개변수의 기본값을 지정할 수 있다.
+
+def post_info(title, content='내용없음'):
+  print('제목:', title)
+  print('내용:', content)
+
+>>> post_info('출석합니다!')
+제목:출석합니다!
+내용:내용없음
+
+-키워드 매개변수
+함수호출시 키워드를 붙여 호출한다.
+매개변수의 순서를 지키지 않아도 된다.
+
+def post_info(title,content):
+  print('제목:', title)
+  print('내용:', content)
+  
+>>> post_info (content='없어요', title='여자친구 만드는 방법')
+제목:여친만드는 법
+내용:없어요
+
+=======
+다양한 매개변수 - 2
+
+-위치 가변 매개변수 
+가변 매개변수 = 개수가 정해지지 않은 매개변수
+매개변수 앞에 *가 붙는다.(튜플 형)
+보통은 arguments의 약자를 따서 *args
+
+def print_fruits(*args):
+
+  for arg in args:
+    print(arg)
+    
+~
+
+-키워드 가변 매개변수
+매개 변수 앞에 **가 붙는다.(딕셔너리 형)
+
+def comment_info(**kwargs):
+  for key,value in kwargs.items():
+    print(f'{key}:{value}')
+    
+# 1. 위치 가변 매개변수
+def print_fruits(*args):
+    print(args)
+
+print_fruits('apple', 'orange', 'mango', 'grape')
+
+# 2. 키워드 가변 매개변수
+def comment_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f'{key}:{value}')
+
+
+comment_info(name="파린이", content="감사합니다.")
+
+# 매개변수 작성 순서
+# 위치 -기본- 위치 가변 - 키워드(기본) - 키워드 가변
+# 상식적으로 가변 매개변수를 제일 앞에 넣으면 가변매개변수가 모두 흡수해버린다.
+# 위치 가변 매개변수 사용 이후 키워드를 쓰는 것은 제대로 찾아 들어갈 수 있다.
+# 키워드 가변 매개변수는 맨 마지막인데 이건 지정 되어 있음.
+
+
+    
+comment_info(name='파린이', content='정말 감사합니다!')
+name:파린이
+content:정말 감사합니다!
+
+=========
+람다함수
+
+이름을 지을 필요도 없는 간단한 형태의 함수.
+
+다른함수의 인자로도 넣을 수 있다.
+코드가 간결해지고 메모리가 절약해진다.(기존 함수를 저장하고 불러오는 것에 비해서
+
+
+기존함수
+def 함수이름(매개변수):
+  return 결과
+
+def minus_one(a):
+  return a-1
+  
+람다 함수 정의
+
+lambda 매개변수: 결과
+
+lambda a : a -1
+
+기존함수 호출법
+minus_one(10)
+
+(lambda a:a-1)(10)
+
+-if문 사용
+
+def is_positive_number(a):
+  if a> 0 :
+    return True
+  else:
+    return False
+
+람다함수 정의
+
+(lambda a:True if a>0 else False)(-2)
+
+#기존 함수
+def minus_one(a):
+    return a-1
+
+#람다 함수
+lambda a : a-1
+
+#람다 함수 호출법 1. 함수 자체 호출
+(lambda a: a-1)(10)
+
+#람다 함수 호출 방법 2. 변수에 담아서 호출
+minus_one_2 = lambda a : a-1
+minus_one_2(100)
+
+#람다 함수에서 if문 사용
+
+#기존함수
+def is_positive_number(a):
+    if a>0:
+        return True
+    else:
+        return False
+
+#람다함수
+lambda a :True if a> 0 else False
+
+#호출 (1)
+(lambda a :True if a> 0 else False)(-2)
+
+#호출 (2)
+is_positive_number = lambda a : True if a>0 else False
+print(is_positive_number(2))
+
+=======
+-map 함수 사용 방법( +람다함수)
+
+map(함수,순서가 있는 자료형)
+map(int,['3','4','5','6'])
+리스트내용을 전부 int함수를 거친후 mapobject 객체로 돌려준다.
+list(map(~~))을 하면 간단
+
+-리스트 모든 요소의 공백 제거
+1)for문 사용했을때
+items = [' 1 ', ' 2 ']
+for i in range(len(items)):
+  items[i] = items[i].strip()
+  
+2)map 사용시
+def strip_all(x):
+  return x.strip()
+  
+items = [' 1 ', ' 2 ']
+items = list(map(strip_all, items))
+
+3)람다 사용시
+items = [' 1 ', ' 2 ']
+items = list(map(lambda x:x.strip(),items))
+
+-filter함수 사용법
+
+filter(함수, 순서가 있는 자료형)
+def func(x):
+  return x<0
+
+filter(func,[-3,-2,0,5,7])
+
+리스트 -> 조건에 맞는 것만 -> 필터 오브젝트로 반환
+따라서 리스트로 조합하는게 조작하기 편함.
+
+-리스트에서 길이가 3이하인 문자들만 필터링
+
+1) for문 사용했을때
+animals = ['cat','tiger','dog','bird','monkey']
+result = []
+for i in animals:
+  if len(i) <= 3:
+    result.append(i)
+    
+2)필터 사용시
+
+def word_check(x):
+  return len(x) <=3
+
+result = list(filter(word_check,animals))
+
+3)람다 사용시
+
+result = list(filter(lambda x:len(x)<=3, animals))
+
+
+
