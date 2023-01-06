@@ -132,6 +132,168 @@ item 클래스
 weapon 클래스
 속성 - 이름, 데미지
 메서드 - 줍기, 버리기, 공격하기
-ㅅ
+
+healing item 클래스
+속성 - 이름, 회복량
+메서드 - 줍기, 버리기, 사용하기
+
+-추상클래스(abstract method)
+상속받는 자식클래스에서 구현을 강제하도록 만드는 것
+예를들어 추상 메서드에서 사용하기를 구현해 놓았다면, 자식 클래스에서는 반드시 구현해 사용해야한다.
+abc모듈을 임포트해준후 클래스에서 metaclass=ABCMeta를 상속해줘야 한다.
+
+#추상클래스 구현시 abc모듈을 임포트해야한다.
+
+from abc import *
+
+class Item(metaclass=ABCMeta):# 이후 이런 매개변수를  상속해줘야한다.
+        """
+        속성 : 이름
+        메서드 : 줍기, 버리기
+        """
+        def __init__(self, name):
+            self.name = name
+
+        def pick(self):
+            print(f"[{self.name}]을 주웠습니다.")
+
+        def discard(self):
+            print(f"[{self.name}]을 버렸습니다.")
+
+        @abstractmethod
+        def use(self):
+            pass
 
 
+class Weapon(Item):
+    """
+    속성 : 공격력
+    메서드 : 공격하기
+    """
+    def __init__(self,name,damage):
+        #부모클래스의 생성자를 호출해서 name을 넘겨주겠다.
+        super().__init__(name)
+        self.damage = damage
+
+    def use(self):
+        print(f"[{self.name}]을 이용해 {self.damage}로 공격")
+
+
+class HealingItem(Item):
+    """
+    속성 : 회복량
+    메서드 : 사용하기
+    """
+    def __init__(self,name,recovery_amount):
+        #부모클래스의 생성자를 호출해서 name을 넘겨주겠다.
+        super().__init__(name)
+        self.recovery_amount = recovery_amount
+    
+
+
+    def use(self):
+        print(f"[{self.name}]을 사용합니다. {self.recovery_amount}회복")
+
+m16 = Weapon("m16", 110)
+bungdae = HealingItem("붕대", 20)
+
+m16.attack()
+bungdae.use()
+
+======
+객체의 관계
+
+
+- is - a
+
+weapon class is a item. 서로 상속할때 발생하는 관계이다.
+player has a unit 특정 클래스가 다른 클래스의 객체를 갖고 있는 관계이다.
+
+#유닛 정보 dictionary
+unit_info = {
+    "probe" : {
+        "name": "프로브",
+        "mineral": 50,
+        "gas": 0,
+        "hp" : 20,
+        "shield":20,
+        "damage":5,
+    },
+    "zealot": {
+        "name": "질럿",
+        "mineral": 100,
+        "gas": 0,
+        "hp": 100,
+        "shield":60,
+        "damage":16
+    },
+    "dragoon":{
+        "name" : "드라군",
+        "mineral": 125,
+        "gas":50,
+        "hp":100,
+        "shield":80,
+        "damage":20
+    }
+}
+#unit 클래스
+
+class Unit:
+    """
+    속성 : 이름, 체력, 방어막, 공격력
+    """
+
+    #생성자 (constructor)
+    #객체를 생성할 때 호출되는 메서드
+    def __init__(self, name, hp, shield, damage):
+        self.name = name #self는 객체 자기 자신을 의미
+        self.hp = hp
+        self.shield = shield
+        self.damage = damage
+        print(f"[{self.name}]이 생성 되었습니다")
+
+#player 클래스 구현
+
+class player:
+    
+    def __init__(self, nickname, mineral, gas, unit_list=[]) :
+        self.nickname = nickname
+        self.mineral = mineral
+        self.gas = gas
+        self.unit_list = unit_list
+    
+    def produce(self, name, mineral, gas, hp,shield,attack):
+        if self.mineral >= mineral and self.gas >= gas:
+            self.mineral -= mineral
+            self.gas -= gas
+            unit = Unit(name, hp, shield, attack)
+            self.unit_list.append(unit)
+        elif self.mineral < mineral and self.gas < gas:
+            print("미네랄이 부족합니다")
+            print("가스가 부족합니다")
+        elif self.mineral < mineral:
+            print("미네랄이 부족합니다")
+        else:
+            print("가스가 부족합니다")
+
+
+
+player1 = player("Bisu", 400, 10)
+
+#유닛 생성
+player1.produce(unit_info["zealot"]["name"],
+unit_info["zealot"]["mineral"],unit_info["zealot"]["gas"],
+unit_info["zealot"]["hp"],unit_info["zealot"]["shield"],
+unit_info["zealot"]["damage"])
+player1.produce(unit_info["probe"]["name"],
+unit_info["probe"]["mineral"],unit_info["probe"]["gas"],
+unit_info["probe"]["hp"],unit_info["probe"]["shield"],
+unit_info["probe"]["damage"])
+player1.produce(unit_info["dragoon"]["name"],
+unit_info["dragoon"]["mineral"],unit_info["dragoon"]["gas"],
+unit_info["dragoon"]["hp"],unit_info["dragoon"]["shield"],
+unit_info["dragoon"]["damage"])
+
+#oㅅㅇ성된 모든 유닛 확인
+for unit in player1.unit_list:
+    print(unit)
