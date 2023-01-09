@@ -47,3 +47,12 @@ null null값
 테이블 생성 명령(쿼리)
 
 CREATE TABLE 테이블명(컬럼명1 데이터 타입, 컬럼명 2 데이터 타입);
+
+CREATE TABLE post(id integer, title text, content text);
+
+-제약조건
+컬럼마다 특별한 기능을 가지는 것을 제약조건이라한다
+
+프라이머리키
+기본키라고도 한다.
+
