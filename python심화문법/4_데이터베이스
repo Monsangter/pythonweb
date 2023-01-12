@@ -84,9 +84,14 @@ SQL_DDL 파일 생성
 sql을 사용하지 않아도 ui상에서 만들 수 있다.
 하지만 직접 만들어보자.
 
+테이블 삭제
+DROP TABLE user;
 
 테이블 명바꾸기
 ALTER TABLE post REMAME TO board;
+
+칼럼 사이즈, 데이터 타입변경
+ALTER TABLE ~ ALTER COLUMN ~ ~
 
 컬럼추가
 ALTER TABLE board ADD COLUMN post_date TEXT;
@@ -137,3 +142,240 @@ DELETE FROM post WHERE id=3;
 
 포스트테이블과, 유저테이블이 id라는 칼럼을 공유하고 있는데, user 에서 id가 프라이머리 키로 지정된채
 auto increment가 적용 돼 있기 때문에  post에서도 이 autoincrement 가 자동 적용 된다.
+
+
+not null 제약조건을 가진 새로운 칼럼 추가의 경우에는 기존 데이터들이 새 칼럼의 내용이 포함된 데이터를 가지고 있지 않기때문에 설정 불가하다.
+====
+
+join 과 group by로 그룹화가 가능하다.
+
+-group by 
+그룹화해서 계산하는 명령
+컬럼별로 그룹해서 계산할 수가 있다.
+
+SELECT count(*) FROM 테이블명 GROUP BY 컬럼명;
+SELECT gender,count(*) FROM user GROUP BY gender;
+SELECT gender,count(*) FROM user WHERE age > 20 GROUP BY gender;
+SELECT gender,avg(age) FROM user WHERE age > 20 GROUP BY gender;
+
+SELECT * FROM post INNER JOIN user WHERE post.author = user.email;
+
+-join
+두 테이블을 묶어 조회할때
+SELECT * FROM 테이블명1 INNER JOIN 테이블명2 WHERE 조건;
+
+SELECT * FROM post INNER JOIN user WHERE post.author = user.email;
+
+SELECT * FROM post, user WHERE post.author = user.email;
+
+두개의 테이블을 묶어 조합해 결과물을 만들어 낼 수 있다.
+위 경우에는 두 테이블의 컬럼이 합쳐서 출력됨
+inner join이라는 표현은 , 로 대치 가능하다.
+
+SELECT gender FROM post, user WHERE post.author = user.email;
+은 post, user 두개의 테이블에서 조건을 만족시키는 gender 컬럼을 불러와 표시한다.
+
+============
+파이썬에서 sqlite 사용법
+
+파이썬에 이미 설치돼 있기때문에 따로 연동 필요도 없이 사용순서만 알면된다. 
+
+1. db파일 열기
+2. 커서 생성
+커서란 셔틀버스와 같다.
+사용자와 dbms사이에 셔틀버스가 있는데 사용자가 sql을 입력하면 ms에 전달하고 데이터를 받아 사용자에게 반환
+3. sql명령 실행
+4. 커밋 또는 롤백
+커밋은 승인을 말한다.
+sql명령중 select를 제외한 테이블이 수정되는 명령들. update, insert,delete 와 같이 테이블을 수정하는 명령은 사용자의 승인이 필요하다.
+5. 데이터베이스 닫기
+작업이 끝났으면 닫아주면 된다.ㅁ
+
+
+====
+
+# 모듈 추
+import sqlite3
+
+#db열기
+conn = sqlite3.connect('./myvenv/Chapter05/SQL_DDL.db')
+
+#커서생성
+cur = conn.cursor()
+
+#SQL 명령 작성
+#primary key에 auto inccrement가 포함돼 있긴 한데
+#포함하지 않은 경우 id 3 레코드를 삭제한후 새로운 테이블을 추가시
+#3부터 시작한다. 포함하게 되면 4부터 시작하는데, 이게 훨씬 좋다.
+#테이블 현재 존재시 실행하지 않는다. 이게없으면 존재시 오류나옴.
+#excute 안에 아래 문을 추가할 수 있지만 가독성상 이렇게 적는다.
+CREATE_SQL = """
+    CREATE TABLE IF NOT EXISTS Item(
+        id integer primary key autoincrement,
+        code text not null,
+        name text not null,
+        price integer not null
+    )
+"""
+
+#SQL 명령 실행
+cur.execute(CREATE_SQL)
+
+
+#데이터베이스 닫기
+conn.close()
+
+=====
+
+# 모듈 추
+import sqlite3
+
+#db열기
+conn = sqlite3.connect('./myvenv/Chapter05/SQL_DDL.db')
+
+#커서생성
+cur = conn.cursor()
+
+#SQL 명령 작성
+#primary key에 auto inccrement가 포함돼 있긴 한데
+#포함하지 않은 경우 id 3 레코드를 삭제한후 새로운 테이블을 추가시
+#3부터 시작한다. 포함하게 되면 4부터 시작하는데, 이게 훨씬 좋다.
+#테이블 현재 존재시 실행하지 않는다. 이게없으면 존재시 오류나옴.
+#excute 안에 아래 문을 추가할 수 있지만 가독성상 이렇게 적는다.
+#?는 순서대로 데이터가 들어가게 해준다.
+INSERT_SQL = "INSERT INTO item(code, name, price) VALUES(?,?,?)"
+
+#데이터 여러개 한번에 추가하기
+data = (
+    ('a2', '에컨', 35),
+    ('a3', '최스', 80),
+    ('a4', '가노', 65),
+)
+
+#SQL 명령 실행
+#이터러블한 데이터를 지정해줄 수 있는데, 여기서는 튜플 사용.
+#cur.execute(INSERT_SQL, ('A00001', '게이밍 마우스', 38000))
+#중첩 튜플과와 executemany를 이용해 여러개 가능
+cur.executemany(INSERT_SQL, data)
+
+#sql명령중 select를 제외한 테이블이 수정되는 명령들. update, insert,delete 와 같이 테이블을 수정하는 명령은 커밋이 필요하다.
+conn.commit()
+
+#데이터베이스 닫기
+conn.close()
+
+=====
+
+# 모듈 추
+import sqlite3
+
+#db열기
+conn = sqlite3.connect('./myvenv/Chapter05/SQL_DDL.db')
+
+#커서생성
+cur = conn.cursor()
+
+#SQL 명령 작성
+#primary key에 auto inccrement가 포함돼 있긴 한데
+#포함하지 않은 경우 id 3 레코드를 삭제한후 새로운 테이블을 추가시
+#3부터 시작한다. 포함하게 되면 4부터 시작하는데, 이게 훨씬 좋다.
+#테이블 현재 존재시 실행하지 않는다. 이게없으면 존재시 오류나옴.
+#excute 안에 아래 문을 추가할 수 있지만 가독성상 이렇게 적는다.
+#?는 순서대로 데이터가 들어가게 해준다.
+#SELECT_SQL = "SELECT * FROM item WHERE code = 'a2';"
+SELECT_SQL = "SELECT * FROM item LIMIT 2;"
+
+
+
+#SQL 명령 실행
+#이터러블한 데이터를 지정해줄 수 있는데, 여기서는 튜플 사용.
+#cur.execute(INSERT_SQL, ('A00001', '게이밍 마우스', 38000))
+#중첩 튜플과와 executemany를 이용해 여러개 가능
+cur.execute(SELECT_SQL)
+
+rows = cur.fetchall()
+for row in rows:
+    print(row)
+
+#sql명령중 select를 제외한 테이블이 수정되는 명령들. update, insert,delete 와 같이 테이블을 수정하는 명령은 커밋이 필요하다.
+#데이터베이스 닫기
+conn.close()
+=====
+# 모듈 추
+import sqlite3
+
+#db열기
+conn = sqlite3.connect('./myvenv/Chapter05/SQL_DDL.db')
+
+#커서생성
+cur = conn.cursor()
+
+#SQL 명령 작성
+#primary key에 auto inccrement가 포함돼 있긴 한데
+#포함하지 않은 경우 id 3 레코드를 삭제한후 새로운 테이블을 추가시
+#3부터 시작한다. 포함하게 되면 4부터 시작하는데, 이게 훨씬 좋다.
+#테이블 현재 존재시 실행하지 않는다. 이게없으면 존재시 오류나옴.
+#excute 안에 아래 문을 추가할 수 있지만 가독성상 이렇게 적는다.
+#?는 순서대로 데이터가 들어가게 해준다.
+UPDATE_SQL = "UPDATE Item set price = 65 WHERE code = 'a2'"
+
+
+
+#SQL 명령 실행
+#이터러블한 데이터를 지정해줄 수 있는데, 여기서는 튜플 사용.
+#cur.execute(INSERT_SQL, ('A00001', '게이밍 마우스', 38000))
+#중첩 튜플과와 executemany를 이용해 여러개 가능
+cur.execute(UPDATE_SQL)
+
+#커밋
+conn.commit()
+
+
+#sql명령중 select를 제외한 테이블이 수정되는 명령들. update, insert,delete 와 같이 테이블을 수정하는 명령은 커밋이 필요하다.
+#데이터베이스 닫기
+conn.close()
+=====
+# 모듈 추
+import sqlite3
+
+#db열기
+conn = sqlite3.connect('./myvenv/Chapter05/SQL_DDL.db')
+
+#커서생성
+cur = conn.cursor()
+
+#SQL 명령 작성
+#primary key에 auto inccrement가 포함돼 있긴 한데
+#포함하지 않은 경우 id 3 레코드를 삭제한후 새로운 테이블을 추가시
+#3부터 시작한다. 포함하게 되면 4부터 시작하는데, 이게 훨씬 좋다.
+#테이블 현재 존재시 실행하지 않는다. 이게없으면 존재시 오류나옴.
+#excute 안에 아래 문을 추가할 수 있지만 가독성상 이렇게 적는다.
+#?는 순서대로 데이터가 들어가게 해준다.
+DELETE_SQL = "DELETE FROM Item WHERE code = 'a2';"
+
+
+
+#SQL 명령 실행
+#이터러블한 데이터를 지정해줄 수 있는데, 여기서는 튜플 사용.
+#cur.execute(INSERT_SQL, ('A00001', '게이밍 마우스', 38000))
+#중첩 튜플과와 executemany를 이용해 여러개 가능
+cur.execute(DELETE_SQL)
+
+#커밋
+conn.commit()
+
+
+#sql명령중 select를 제외한 테이블이 수정되는 명령들. update, insert,delete 와 같이 테이블을 수정하는 명령은 커밋이 필요하다.
+#데이터베이스 닫기
+conn.close()
+====
+추가적 공부가 필요하다면?
+
+5~6개의 테이블이 필요한 개인프로젝트의 디비설계
+
+PK FK의 설정
+
+정규화와 역정규화
+테이블간의 중복을 제거한다.
+
+
