@@ -79,9 +79,80 @@ doc은 로딩되는 실제 페이지 전체를 의미함.
 디비는 웹서버의 역할에 핵심이다.
 
 대표적 디비가 엑셀.
-컬럼과 로우.
+컬럼과 로우가 있다.
+
+실제 웹사이트 이용시에는 
 
 db - 서버(미들웨어) - 유저
+
+중간에 서버가 있다.
+실제적으론 라우터를 이용해 연결한다.
+
+서버는 미리만들어논 템플릿에 db에서 불러온 정보를 활용해
+렌더링한다.
+
+서버는 CRUD를 활용해 데이터 입출력. 유저에게 어떻게 보기 좋게
+만들어줄지 생각한다.
+
+예를들어 서버는 유저에게 어떻게 보기 좋은 정보를 갖다줄지, 다양한 로직
+을 활용해 정보를 가공하게 된다.
+
+일반적으로 모바일 사이트는 담는 정보가 작기 때문에
+로직이나 db가 적을 가능성이 크다. 모바일 크롤링이 좋음.
+
+======
+
+http?
+
+ㅅ버에 요청
+
+get
+user-agent
+host
+accept-language
+accept-encoding
+connection
+
+http/1.1 200 OK
+user-agent
+host
+accept-language
+accept-encoding
+connection
+content-type
+content-length
+
+http의 구성은
+레퀘스트 라인
+0개이상의 헤더
+빈 라인
+바디
+
+
+request-line = Method sp Request-URI sp http-version crlf
+
+메소드와 요청uri http버전 이렇게 새개로 이루어져 있다.
+
+요청uri는 호스트와 조합됨.
+
+메소드는 요청방법.
+
+헤더는 앞부분
+바디는 콜론뒤의 뒷부분
+
+accept랭기지는 꼭 그언어로 받는건 아니지만 서버처리시 도움줌
+accept encoding은 암호화. gzip, deflate
+커넥션. 요청 유지. 속도처리 자원황룡 측면 중요
+
+콘텐츠 타입. html요청을 할때 post는 보내는건데, 보내는 콘텐츠타입
+데이터 바디가 무슨 타입이냐?컨텐츠타입에 값이 많이 필요시 콜론사용.
+
+content-lenth 
+
+빈라인
+
+바디
+데이터 바디가
 
 
 
