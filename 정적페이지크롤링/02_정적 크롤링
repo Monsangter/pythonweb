@@ -153,3 +153,212 @@ print(res.raw)
 #브라우저가 민망해서 간단히 html을 채운거임.
 #우클릭해서 페이지 소스보기하면 html 하나도 없음.
 
+
+============
+xml 데이터
+
+옛날에 많이 쓰였다.
+
+버전명과 엔코딩으로 시작된다.
+
+열림태그와 닫힘태그 짝
+노드node로 이루어진다.
+<??>는 메타데이터 표시
+
+<?xml version="1.0" encoding="utf-8"?>
+<note>
+            <to></to>
+            <from></from>
+</note>
+
+위 태그는 노드 하나로 이루어져 있다고 볼 수 잇음. 노드 안에 노드.
+
+글자를 숫자로 매핑하는 부분을 어디선가는 캐릭터 셋으로, 어디서는 인코딩으로 표현하기도 한다.
+
+ISO 8859-1 아스키코드의 확장
+
+=======
+html
+
+xml에 비해 좀더 룰이 있고 정해진 것이 있다.
+div는 html에서 가장 많이 쓰임
+html에서도 태그, 노드라는 용어를 쓴다.
+
+노드는 데이터를 갖고 있고, id, 클래스와 같은 메타데이터를 더 가지고 있다.
+노드의 속성.
+
+html에서는 태그의 의미가 있다.
+파싱시 어떤 태그가 어떤 역할을 하는지는 알고 있어야 한다.
+
+=======
+json
+현 인터넷 세계에서 가장 많이 쓰임.
+
+굉장히 간단하고 쉬움.
+자바스크립트의 기본 데이터 타입임.
+
+data = {
+            "title": "aaa",
+            "author": "asdf",
+}
+
+파이썬의 딕셔너리를 자바스크립트의 제이슨이라고 생가갛면 쉽다.
+
+
+
+개발자 도구에서 xhr은 
+http연결 자체가 아닌 연결된후의 갖고오는 자료의 타입.
+주로 제이슨으로 이루어져 있음.
+
+{
+  "data": [
+    {
+      "rank": 1,
+      "rankChange": 0,
+      "symbolCode": "A035720",
+      "code": "KR7035720002",
+      "name": "카카오",
+      "tradePrice": 64700,
+      "change": "RISE",
+      "changePrice": 1000,
+      "changeRate": 0.0156985871,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 2,
+      "rankChange": 0,
+      "symbolCode": "A005930",
+      "code": "KR7005930003",
+      "name": "삼성전자",
+      "tradePrice": 64600,
+      "change": "RISE",
+      "changePrice": 700,
+      "changeRate": 0.0109546166,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 3,
+      "rankChange": 5,
+      "symbolCode": "A277810",
+      "code": "KR7277810008",
+      "name": "레인보우로보틱스",
+      "tradePrice": 80600,
+      "change": "RISE",
+      "changePrice": 2500,
+      "changeRate": 0.0320102433,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 4,
+      "rankChange": -1,
+      "symbolCode": "A254490",
+      "code": "KR7254490006",
+      "name": "미래반도체",
+      "tradePrice": 15600,
+      "change": "RISE",
+      "changePrice": 3600,
+      "changeRate": 0.3,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 5,
+      "rankChange": 0,
+      "symbolCode": "A090710",
+      "code": "KR7090710005",
+      "name": "휴림로봇",
+      "tradePrice": 2835,
+      "change": "RISE",
+      "changePrice": 30,
+      "changeRate": 0.0106951872,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 6,
+      "rankChange": -2,
+      "symbolCode": "A108860",
+      "code": "KR7108860008",
+      "name": "셀바스AI",
+      "tradePrice": 14770,
+      "change": "RISE",
+      "changePrice": 1450,
+      "changeRate": 0.1088588589,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 7,
+      "rankChange": 0,
+      "symbolCode": "A373220",
+      "code": "KR7373220003",
+      "name": "LG에너지솔루션",
+      "tradePrice": 506000,
+      "change": "FALL",
+      "changePrice": 11000,
+      "changeRate": 0.0212765957,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 8,
+      "rankChange": 2,
+      "symbolCode": "A034020",
+      "code": "KR7034020008",
+      "name": "두산에너빌리티",
+      "tradePrice": 16590,
+      "change": "RISE",
+      "changePrice": 310,
+      "changeRate": 0.019041769,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 9,
+      "rankChange": -3,
+      "symbolCode": "A035420",
+      "code": "KR7035420009",
+      "name": "NAVER",
+      "tradePrice": 211500,
+      "change": "RISE",
+      "changePrice": 7500,
+      "changeRate": 0.0367647059,
+      "chartSlideImage": null,
+      "isNew": false
+    },
+    {
+      "rank": 10,
+      "rankChange": 0,
+      "symbolCode": "A068270",
+      "code": "KR7068270008",
+      "name": "셀트리온",
+      "tradePrice": 166800,
+      "change": "RISE",
+      "changePrice": 1500,
+      "changeRate": 0.0090744102,
+      "chartSlideImage": null,
+      "isNew": true
+    }
+  ]
+}
+
+긁어올때는 json prettier이용
+
+[] array
+
+{}의 형식을 프로그래밍 언어에서
+객체 object, notation이라고 부르기도 한다.
+
+json은 js object notation
+
+json은 파이썬과 달리 맨뒤 키밸류값에 콤마가 있으면 안된다.
+
+수많은 언어에서 지원하고 다루기 때문에
+일관성있게 정한 규칙으로 보면 되겠음. 그리고 문자열에 대해서는 ""를 사용해야됨.
+
+
+      
+      
