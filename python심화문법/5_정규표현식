@@ -32,8 +32,114 @@ regexr.com/639t5
 앵커
 이스캐입드 캐릭터
 플래그
-기볹
 
+//gm 은 플래그인데 정규 표현식을 찾아주는 옵션이라고 보면 된다.
+
+g는 글로벌의 약자로 전역에대해 매칭되는 문자열을 찾는다.
+
+-캐릭터 클래스
+
+.	any character except newline
+
+
+\w\d\s	word, digit, whitespace
+
+word . alphanumeric 알파벳, 숫자 . 언더바 포함.
+digit 숫자만
+
+
+
+
+\W\D\S	not word, digit, whitespace
+
+
+[abc]	any of a, b, or c
+abc중 아무거나 해당되면 찾음.
+
+[^abc]	not a, b, or c
+
+
+[a-g]	character between a & g
+a와 g 사이의 숫자
+
+한글은
+[가-힣]
+영어는
+[a-zA-Z]
+숫자는[0-9]
+
+
+
+-Anchors
+
+^abc$	start / end of the string
+\b\B	word, not-word boundary
+
+^같은 경우는 괄호 안에서는 캐릭터 클래스로
+밖에서는 앵커로 사용됨.
+
+멀티라인 플래그 /m은 앵커스 표현을 라인 별로 전부 지정하게 된다.
+앵커스는 한 라인안에서만 찾게되고
+\b,\B 바운더리는 전체 문자열에 대해 사용하게됨
+ex) \bapple,\Bapple
+
+-Escaped characters
+\.\*\\	escaped special characters
+\t\n\r	tab, linefeed, carriage return
+
+.같은 경우는 캐릭터 클래스로 사용되고 있고 그냥 정규식 검색시
+그 문자 자체를 찾고 싶을때 사용하게 된다.
+[]같은 경우도 메타문자로 사용되고 있기 때문에 동일
+
+탭 라인피드 캐리지 리턴도 딱히 대표할만한 문자가 없기에 역슬래시 사용
+
+======
+사용방법 2
+
+quantifiers & alternation
+수량자, 연산
+groups & lookaround
+그룹, 전방탐색
+
+-Quantifiers & Alternation
+a*a+a?	0 or more, 1 or more, 0 or 1
+
+a{5}a{2,}	exactly five, two or more
+
+a{1,3}	between one & three
+
+a+?a{2,}?	match as few as possible
+
+ab|cd	match ab or cd
+
+
+#좋아요, #좋아요반사, #팔로우, #맞팔,
+"#.+," 에서 +는 greedy 방식을 이용하기 때문에 마지막 콤마에서 종료가된다.
+
+중간에 끊어주려면 ? 를사용 nonegreedy 방식을 사용한다. 
+"#.+?,"
+"#.{3,4}?,"
+
+grey|gray
+둘중 하나라도 매치되는 것
+gr[ae]y로도 적어줄 수 있음.
+
+-Groups & Lookaround
+(abc)	capture group
+\1	backreference to group #1
+(?:abc)	non-capturing group
+
+검색조건으로 그룹을 활용하고 싶은데, 그룹자체를 만들고 싶지는 않은경우 
+
+(?=abc)	positive lookahead
+검색 조건에는 
+(?!abc)	negative lookahead
+
+"#.+?,"에서 
+"#(.+?),"
+를 하면 언어로 가져왔을때 그룹안만 뽑을 수 있음.
+"(.+?)\1"
+앞에서 사용했던 그룹이 \1자리에 그대로 들어가게 된다.
 
 
 
