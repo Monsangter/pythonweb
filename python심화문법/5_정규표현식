@@ -132,7 +132,12 @@ gr[ae]y로도 적어줄 수 있음.
 검색조건으로 그룹을 활용하고 싶은데, 그룹자체를 만들고 싶지는 않은경우 
 
 (?=abc)	positive lookahead
-검색 조건에는 
+검색 조건에는 포함되나 결과에는 포함되지 않음.
+.*(?=-레몬스토어)
+
+
+(?!abc)	negative lookahead
+(?=.*(?!레몬).*스토어)
 (?!abc)	negative lookahead
 
 "#.+?,"에서 
