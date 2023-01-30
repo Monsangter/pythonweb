@@ -414,6 +414,11 @@ find의 주 쓰임새는 문자열에서 원하는게 있는지 없는지로 주
 <span calss = "value">1,108.50</span>
 s html.split('<span class = "value">')[1].split('</span>')[0]
 
+===============
+
+크롤링에서 정규식은 꽃이라고 할 수 있다.
+
+
 
 
 
