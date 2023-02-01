@@ -143,8 +143,43 @@ for i in closure.__closure__:
 
 순서가 있는 자료형
 for i in ~ :
-문자열, 리스트,
- 튜플,
- 딕셔너리 
-, ㄱarge 객체
+문자열, 리스트, 튜플, 딕셔너리, range 객체
+
+# 이터레이터 생성법
+
+class Seasons:
+    def __init__(self):
+        self.season_list = ['spring', 'summer', 'autumn', 'winter']
+        self.idx = 0
+        self.max_num = 4
+    #메소드 호출시 객체 자기자신 호출
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.idx < self.max_num:
+            curr_idx = self.idx
+            self.idx += 1
+            return self.season_list[curr_idx]
+        else:
+            raise StopIteration
+
+for i in Seasons():
+    print(i)
+
+iter_obj = Seasons().__iter__()
+
+print(iter_obj.__next__())
+print(iter_obj.__next__())
+print(iter_obj.__next__())
+print(iter_obj.__next__())
+print(iter_obj.__next__())
+
+=============
+제너레이터란?
+
+
+
+
+
+
 
