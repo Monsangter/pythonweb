@@ -180,6 +180,104 @@ fullmatch
 없을시 none
 
 
+-match 객체의 메서드
+
+group 매칭된 문자열 반환
+start 매칭된 문자열의 시작위치
+end 매칭된 문자열의 끝위치
+span 매칭된 문자열의 시작끝 위치 튜플
+
+import re
+
+#1.re 모듈의 메서드
+
+str = 'love people around you, love your work, love yourself'
+
+# 1) match :문자열의 처음부터 검색 (결과 : 1개의 매치객체)
+
+result = re.match('love', str)
+print(result)
+
+#2) search :문자열의 전체를 검색 (결과: 1개의 match 객체)
+result = re.search('people', str)
+print(result)
+
+
+#3) findall : 문자열의 전체를 검색 (결과 : 문자열 리스트))
+results = re.findall('love', str)
+print(results)
+
+#4)finditer : 문자열의 전체 검색 (결과 : match 객체 이터레이터)
+
+results = re.finditer('love', str)
+print(results)
+
+for result in results:
+    print(result)
+
+# 5) fullmatch 패턴과 문자열이 완벽하게 일치하는지 검사
+str2 = 'Hey Guys, read books'
+result = re.fullmatch('.*', str2)
+print(result)
+
+# 2. match object의 메서드
+result = re.search('people', str)
+
+# 1)group() : 매칭된 문자열 반환
+print(result.group())
+
+# 2)start() : 매칭된 문자 
+print(result.start())
+
+# 3) end() : 매칭된 문자열의 끝 위치 반환
+print(result.end())
+
+# 4) span() : 매칭된 문자열의 시작 끝 위치 튜플
+print(result.span())
+
+
+
+#1. ID @ host
+#2. ID 파트는 영대소문자, 숫자, 특수문자(-_)
+#3. host 파트는 영문 대소문자, 숫자, 특수문자(-)
+#4. host 파트는 2개 이상의 도메인으로 구성 될 수 있다.
+
+#^[\w-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+
+
+import re
+
+regex = re.compile('^[\w-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+')
+
+datas = [
+    'startcoding@maver.com'
+    'start-coding@maver.com'
+    'start_coding@maver.co.kr'
+    'startcoding@k-mail.com'
+    '@maver.com'
+    'startcoding?@k-mail.com'
+    'startcoding@k-mail'
+    'startcoding@maver'
+]
+# regex = ^[\w-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-.]+
+# 컴파일하는 과정이 반복되게 된다. 
+# 따라서 regex에 표현식을 담을때 미리 컴파일해준다.
+# for data in datas:
+#     matchObj = re.match(regex, data)
+
+
+for data in datas:
+     matchObj = regex.match(data)
+     result = (lambda x : True if x != None else False)(matchObj)
+     print(f'{data} {result}')
+
+
+
+
+
+
+
+
+
 
 
 
