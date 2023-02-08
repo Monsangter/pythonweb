@@ -252,3 +252,50 @@ ge = func()
 
 data = ge.__next__()
 print(data)
+
+
+===============
+-데코레이터
+
+함수의 앞, 뒤로 부가적 기능을 넣어주고 싶을때 사용
+
+로깅. 프로그램 실행 중간중간을 확인하는 과정
+권한, 이 사용자가 로그인 상태인지.
+
+대표적으로 두가지 기능에 사용
+
+클로저를 이용해 생성
+적고 싶은함수 앞에 @데코레이터
+
+#데코레이터
+#함수의 앞 뒤로 부가적 기능을 넣어주고 싶을때 사용
+#로깅, 권한 확인
+
+#중복되는 함수를 제거하는 역할
+
+#데코레이터 생성하기
+
+def logger(func):
+    def wrapper(arg):
+        print("함수시작")
+        func(arg) # 함수 실행
+        print("함수 끝")
+    return wrapper
+
+@logger
+def print_hello(name):
+    print("hello",name)
+
+@logger
+def print_bye():
+    print("bye", name)
+
+
+print_hello('fast')
+print_bye('campus')
+
+
+
+
+
+
