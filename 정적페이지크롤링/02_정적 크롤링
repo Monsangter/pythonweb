@@ -418,11 +418,27 @@ s html.split('<span class = "value">')[1].split('</span>')[0]
 
 크롤링에서 정규식은 꽃이라고 할 수 있다.
 
+패턴 검색 기법.seriali[sz]er
+colou?r
+
+()캡처
+[]이중 아무거나
+.아무거나
+*0개이상
++1개 이상
+?없을수도
+\위 특수기호 무효화
 
 
 
+import re
+s= 'hi'
 
+print(re.match(r'hi1*', s))
 
+print(re.findall(r'이 (..)는 ([abcd])등급 입니다', s))
+
+정규식이 스플릿보다는 약간 느림.
 
 
 
