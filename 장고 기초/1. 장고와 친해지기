@@ -300,7 +300,13 @@ pay_plan = models.ForeignKey(PayPlan, on_delete=models.DO_NOTHING)
 위는 한태이블이 쌓이고
 밑은 두테이블이 쌓임.
 
+앱스트렉 모델을 만들었으면 위로 쓰면 되고
+장고기본모델을 사용햇다 추가한다면 밑을 사용
 
+
+앱스트랙트 유저에 
+앱스트랙트 유저에 추가 
+앱스트랙트 유저에 추가 정보를 
 
 
 
