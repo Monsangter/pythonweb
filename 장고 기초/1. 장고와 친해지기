@@ -308,12 +308,39 @@ pay_plan = models.ForeignKey(PayPlan, on_delete=models.DO_NOTHING)
 앱스트랙트 유저에 추가 
 앱스트랙트 유저에 추가 정보를 
 
+=====
+urls.py
+
+요청의 url경로를 가지고 어디로 보낼지 어떻게 실행시킬지 정의한 것.
+
+기본적으로 어드민url을 장고가 생성하고 있고,
+path("", index, name="index"),
+root path가 된다.
+아무것도 없을때 index가 들어감.
+
+path("redirect", redirect_test),
+url이 리다이렉트일 경우 패스를 실행하라
 
 
 
 
 
+-base.html
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FastCampus Django</title>
+</head>
+<body>
+{{ welcome_msg }}
+</body>
+</html>
+
+ㅇ웰컴 메시지가 
+파이썬 
+파이썬 뷰에서 
 
 
 
